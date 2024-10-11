@@ -27,14 +27,50 @@
     .dashboard-content {
       background: linear-gradient(
         to bottom right,
-        rgb(209, 224, 209), // Light Green (top left)
-        rgba(155, 217, 155, 0.8) 80%, // Light Green (middle)
-        rgba(177, 225, 177, 0.8) // Dark Green (bottom right)
+        #dffde8, 
+        #dffde8 60%, 
+        #c0ffc0 80%, 
+        #bbeebd, 
+        #b1dab5 
       );
       color: black;
     }
+    .ProjectInfo{
+      background-color: white;
+    }
+    .PendingInfo{
+      background-color: white;
+    }
+    .disposeButton {
+      background: linear-gradient(180deg, #3AE659, #048346); 
+      color: white;
+      font-weight: 600;
+      
+    }
+    .userActivityChart {
+      border: 1px solid #56EE68; // Solid border with the specified color
+      border-radius: 16px; // Rounded corners
+      color: darkgray; 
+      .chartText{
+        color: #121212;
+      }
+  }
+  .DeviceStatistics{
+    border: 2px solid #56EE68; // Solid border with the specified color
+      
+      color: darkgray; 
+      .chartText{
+        color: #121212;
+      }
+  }
+  
+  
+    
     
   }
+  
+
+  
 }
 
 

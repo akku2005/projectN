@@ -62,7 +62,6 @@
 //           className: "font-primary text-sm",
 //         });
 //       } else {
-
 //         setErrors((prev) => ({
 //           ...prev,
 //           apiMsg: result.message || "Login failed. Please try again.",
@@ -192,12 +191,13 @@ import { PrimaryBtn } from "../../components/Buttons";
 import { InputField } from "../../components/InputField";
 import { RouterData } from "../../router/RouterData";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Signin = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "", apiMsg: "" });
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate(); // Initialize navigate
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -229,12 +229,37 @@ const Signin = () => {
     }
 
     try {
-      // Simulate successful login without API call
-      toast.success("Login bypassed! Redirecting to dashboard...", {
-        className: "font-primary text-sm",
+      const response = await fetch("http://13.233.36.198:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
       });
-      // Redirect to dashboard after bypassing login
-      navigate("/dashboard");
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // Store token in a cookie (set expiration and path as required)
+        Cookies.set("token", result.token, { expires: 7, path: "/" }); // Cookie expires in 7 days, path '/' makes it available to the entire site
+
+        toast.success("Login successful!", {
+          className: "font-primary text-sm",
+        });
+        navigate("/dashboard"); // Redirect to dashboard
+      } else {
+        setErrors((prev) => ({
+          ...prev,
+          apiMsg: result.message || "Login failed. Please try again.",
+        }));
+        toast.error(result.message || "Login failed. Please try again.", {
+          className: "font-primary text-sm",
+          position: "top-center",
+        });
+      }
     } catch (error) {
       console.error(error);
       setErrors((prev) => ({
@@ -312,7 +337,7 @@ const Signin = () => {
           />
 
           <div className="flex flex-row items-center gap-4">
-            <Checkbox label={"Rember Me"} color="green" />
+            <Checkbox label={"Remember Me"} color="green" />
             <Link
               to={RouterData.auth.children.forgotPassword}
               className="text-sm font-primary text-primary-500 font-normal underline ml-auto"

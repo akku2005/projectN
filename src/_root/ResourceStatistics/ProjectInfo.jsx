@@ -6,7 +6,7 @@ const MobileProjectInfo = () => {
   return (
     <div className="flex flex-col space-y-4">
       {/* First Project Box */}
-      <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-4 shadow-lg flex flex-col justify-between w-full h-[170px] gap-4 border border-gray-100 border-opacity-30">
+      <div className="PendingInfo bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-4 shadow-lg flex flex-col justify-between w-full h-[170px] gap-4 border border-gray-100 border-opacity-30">
         <div className="flex items-center mb-2 gap-4">
           <FaWifi className="h-[20px] w-[20px] text-[rgb(86,238,104)]" />
           <h2 className="text-lg">My Project</h2>
@@ -25,7 +25,7 @@ const MobileProjectInfo = () => {
       </div>
 
       {/* Second Project Box */}
-      <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-4 shadow-lg w-full h-[150px] gap-4 border border-gray-100 border-opacity-30 flex flex-col justify-center items-center">
+      <div className="PendingInfo bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-4 shadow-lg w-full h-[150px] gap-4 border border-gray-100 border-opacity-30 flex flex-col justify-center items-center">
         <div className="text-center flex justify-center">
           <FaWifi className="text-xl mb-2 mx-auto" />
         </div>

@@ -39,11 +39,7 @@ const DeviceStatistics = () => {
   };
 
   return (
-    <div
-      className={`bg-white bg-opacity-10 rounded-lg p-6 border-[2px]  ${
-        isDarkMode ? "border-gray-700" : "border-green-800"
-      } border-opacity-30 w-full h-auto sm:h-[360px] lg:h-[390px] mt-8`}
-    >
+    <div className="DeviceStatistics bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-6 border border-gray-100 border-opacity-50 w-full h-auto sm:h-[380px] lg:h-[390px]  sm:w-auto">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center">
@@ -54,16 +50,6 @@ const DeviceStatistics = () => {
               alt="Project Icon"
             />
           </div>
-          <div>
-            <h2
-              className={`${
-                isDarkMode ? "text-white" : "text-black"
-              } text-xl sm:text-2xl font-semibold`}
-            >
-              My Project
-            </h2>
-            <p className="text-green-400 text-sm sm:text-base">Mall Area</p>
-          </div>
         </div>
         <p
           className={`${
@@ -73,12 +59,21 @@ const DeviceStatistics = () => {
           8th September 2024
         </p>
       </div>
-
+      <div>
+        <h2
+          className={`${
+            isDarkMode ? "text-white" : "text-black"
+          } text-xl sm:text-2xl font-semibold`}
+        >
+          My Project
+        </h2>
+        <p className="text-green-400 text-sm sm:text-base">Mall Area</p>
+      </div>{" "}
       {/* Statistics and Doughnut Chart */}
-      <div className="flex flex-col sm:flex-row justify-between items-center mt-16">
+      <div className="flex flex-col sm:flex-row justify-between items-center mt-16 ">
         <div className="flex gap-9">
           {/* Gateway Info */}
-          <div className="text-center mb-4 sm:mb-0">
+          <div className="text-center mb-4 sm:mb-0 ">
             <p
               className={`${
                 isDarkMode ? "text-white" : "text-black"
@@ -106,7 +101,7 @@ const DeviceStatistics = () => {
         </div>
 
         {/* Doughnut Chart */}
-        <div className="w-28 h-28 sm:w-36 sm:h-36">
+        <div className="w-28 h-28 sm:w-36 sm:h-36 ">
           <Doughnut data={data} options={options} />
         </div>
       </div>
