@@ -1,22 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { RiDashboardHorizontalLine } from "react-icons/ri";
 import { IoWifiOutline, IoSettingsOutline } from "react-icons/io5";
 import { FaRegFolder } from "react-icons/fa";
 import { MdOutlineSecurity } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
 import { TbUsers } from "react-icons/tb";
+import { FiLogOut } from "react-icons/fi"; // Import Logout icon
 import { GiHamburgerMenu } from "react-icons/gi"; // Icon for opening sidebar
 import "../../_root/styles/Sidebar.scss";
 import Icons from "../../_root/constants/Icons";
+import Cookies from "js-cookie"; // Import js-cookie for handling cookies
 
 const Sidebar = () => {
   const [activePage, setActivePage] = useState("Present");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleIconClick = (page) => {
     setActivePage(page);
     setIsSidebarOpen(false); // Close sidebar on icon click for mobile
+  };
+
+  const handleLogout = () => {
+    // Remove the authentication token from cookies
+    Cookies.remove("userToken");
+
+    // Optionally, you can remove other related cookies here
+
+    // Redirect the user to the Signin page
+    navigate("/auth/sign-in");
   };
 
   // Handle outside click to close sidebar for mobile
@@ -39,12 +52,20 @@ const Sidebar = () => {
   }, [isSidebarOpen]);
 
   return (
-    <div className="sidebar-container relative ">
+    <div className="sidebar-container relative">
+      {/* Hamburger Menu for Mobile */}
+      <div className="hamburger-icon md:hidden absolute top-4 left-4 z-50">
+        <GiHamburgerMenu
+          className="w-6 h-6 text-white"
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        />
+      </div>
+
       {/* Sidebar for large screens */}
       <div
-        className={`sidebar  ${
+        className={`sidebar flex-col justify-between h-full p-4 hidden md:flex ${
           isSidebarOpen ? "open" : ""
-        }  flex-col justify-between h-full p-4 hidden md:flex`}
+        }`}
       >
         {/* Top Section: Logo */}
         <div className="logo mb-4">
@@ -113,8 +134,8 @@ const Sidebar = () => {
           </Link>
         </div>
 
-        {/* Bottom Section: Settings */}
-        <div className="settings mt-4">
+        {/* Bottom Section: Settings and Logout */}
+        <div className="settings mt-4 flex flex-col items-center space-y-4">
           <Link
             to="/settings"
             className={`icon-container ${
@@ -124,8 +145,20 @@ const Sidebar = () => {
           >
             <IoSettingsOutline className="icon w-6 h-6 text-white" />
           </Link>
+          {/* Logout Icon */}
+          <button
+            onClick={handleLogout}
+            className="icon-container focus:outline-none"
+          >
+            <FiLogOut className="icon w-6 h-6 text-white" />
+          </button>
         </div>
       </div>
+
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div className="fixed inset-0 bg-black opacity-50 z-40 md:hidden"></div>
+      )}
 
       {/* Bottom Navigation for Mobile */}
       <div className="bottom-nav md:hidden fixed bottom-0 left-0 right-0 bg-[#0D0D0D] flex justify-around items-center p-2 z-50">
@@ -156,7 +189,6 @@ const Sidebar = () => {
         >
           <FaRegFolder className="icon w-6 h-6 text-white" />
         </Link>
-
         <Link
           to="/users"
           className={`icon-container ${activePage === "Users" ? "active" : ""}`}
@@ -173,6 +205,13 @@ const Sidebar = () => {
         >
           <IoSettingsOutline className="icon w-6 h-6 text-white" />
         </Link>
+        {/* Logout Icon for Mobile */}
+        <button
+          onClick={handleLogout}
+          className="icon-container focus:outline-none"
+        >
+          <FiLogOut className="icon w-6 h-6 text-white" />
+        </button>
       </div>
     </div>
   );
