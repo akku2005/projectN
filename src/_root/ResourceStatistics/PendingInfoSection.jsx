@@ -3,7 +3,7 @@ import PendingInfoBox from "./PendingInfoBox"; // Ensure this is the correct imp
 
 const MobilePendingInfoSection = () => {
   return (
-    <div className="flex flex-row  gap-3 w-full ">
+    <div className="flex flex-row  gap-3 w-auto">
       <PendingInfoBox count={2} label="Pending Project" />
       <PendingInfoBox count={0} label="Account Change" />
     </div>

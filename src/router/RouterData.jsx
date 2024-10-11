@@ -10,5 +10,6 @@ export const RouterData = {
   root: {
     dashboard: "/dashboard",
     settings: "/settings",
+    devices: "/devices",
   },
 };

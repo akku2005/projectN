@@ -3,11 +3,11 @@ import React from "react";
 import "../styles/Dashboard.scss";
 const PendingInfoBox = ({ count, label }) => {
   return (
-    <div className="PendingInfo bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-4 shadow-lg w-full h-[200px] gap-4 border border-gray-100 border-opacity-30 flex flex-col justify-between">
+    <div className="PendingInfo bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-4 shadow-lg w-full h-[200px] gap-4 border border-gray-100 border-opacity-30 flex flex-col justify-between w-auto">
       {" "}
       {/* Adjusted height */}
       <div className="flex justify-between items-center w-full px-4 gap-2 p-5">
-        <div className="text-6xl font-bold ">{count}</div>{" "}
+        <div className="text-4xl font-bold">{count}</div>{" "}
         {/* Adjusted font size */}
         <div className="text-lg md:text-2xl font-[500]">{label}</div>{" "}
         {/* Adjusted font size */}

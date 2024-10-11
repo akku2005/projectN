@@ -100,14 +100,17 @@ const MainContent = ({ isDarkMode }) => {
                 { count: 4, label: "Alarm Total" },
                 { count: 6, label: "Offline Total" },
                 { count: 6, label: "Inspection Report" },
-              ].map(({ count, label }) => (
-                <div className="font-bold flex items-end gap-2 md:gap-4 w-full md:w-[150px]">
+              ].map(({ count, label }, index) => (
+                <div
+                  key={index}
+                  className="font-bold flex items-end gap-2 md:gap-4 w-full md:w-[150px]"
+                >
                   <span className="font-semibold text-[40px] md:text-[50px] leading-none text-center">
                     {count}
                   </span>
                   <div className="text-[16px] md:text-[20px] leading-[24px] font-medium text-start">
-                    {label.split(" ").map((word, index) => (
-                      <div key={index}>{word}</div> // Each word is wrapped in a div for a new line
+                    {label.split(" ").map((word, idx) => (
+                      <div key={idx}>{word}</div> // Each word is wrapped in a div for a new line
                     ))}
                   </div>
                 </div>
@@ -208,17 +211,14 @@ const MainContent = ({ isDarkMode }) => {
                 User Activity
               </h1>
             </div>
-            <div className="userActivityChart">
-              <ChatPage />
-            </div>
+            {/* Chart for User Activity */}
+            <ChatPage chartData={lineChartData} />
           </div>
-          <div className="w-full md:w-1/2 inline-block mt-4">
-            <div className="flex justify-between items-center mb-4">
-              <h1 className={`text-2xl md:text-3xl font-[500]`}>
-                Device Statistics
-              </h1>
-            </div>
-            <DeviceStatistics />
+          <div className=" w-full md:w-1/2">
+            <h1 className={`text-2xl md:text-3xl font-[500]`}>
+              Device Statistics
+            </h1>
+            <DeviceStatistics chartData={pieChartData} />
           </div>
         </div>
       </div>

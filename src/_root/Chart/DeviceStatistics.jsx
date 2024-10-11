@@ -39,9 +39,9 @@ const DeviceStatistics = () => {
   };
 
   return (
-    <div className="DeviceStatistics bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-6 border border-gray-100 border-opacity-50 w-full h-auto sm:h-[380px] lg:h-[390px]  sm:w-auto">
+    <div className="DeviceStatistics bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-6 border border-gray-100 border-opacity-50 w-full h-auto sm:h-[380px] lg:h-[390px]  sm:w-auto mt-5">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-0">
         <div className="flex items-center">
           <div className="mr-4">
             <img
