@@ -59,11 +59,11 @@ const DeviceStatistics = () => {
           8th September 2024
         </p>
       </div>
-      <div>
+      <div className="mt-5">
         <h2
           className={`${
             isDarkMode ? "text-white" : "text-black"
-          } text-xl sm:text-2xl font-semibold`}
+          } text-xl sm:text-2xl font-semibold `}
         >
           My Project
         </h2>
