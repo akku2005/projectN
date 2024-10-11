@@ -215,9 +215,12 @@ const MainContent = ({ isDarkMode }) => {
             <ChatPage chartData={lineChartData} />
           </div>
           <div className=" w-full md:w-1/2">
-            <h1 className={`text-2xl md:text-3xl font-[500]`}>
-              Device Statistics
-            </h1>
+            <div className="flex justify-between">
+              <h1 className={`text-2xl md:text-3xl font-[500]`}>
+                Device Statistics
+              </h1>
+              <FaInfoCircle className="w-[24px] h-[24px]" />
+            </div>
             <DeviceStatistics chartData={pieChartData} />
           </div>
         </div>
