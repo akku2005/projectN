@@ -244,7 +244,7 @@ const Signin = () => {
 
       if (response.ok) {
         // Store token in a cookie (set expiration and path as required)
-        Cookies.set("token", result.token, { expires: 7, path: "/" }); // Cookie expires in 7 days, path '/' makes it available to the entire site
+        Cookies.set("userToken", result.token, { expires: 7, path: "/" }); // Corrected to "userToken"
 
         toast.success("Login successful!", {
           className: "font-primary text-sm",
@@ -285,7 +285,7 @@ const Signin = () => {
         <div className="flex items-center space-x-2">
           <img
             src="/assets/logo.jpeg"
-            alt=""
+            alt="Logo"
             className="w-full h-full max-w-[100px]"
           />
         </div>

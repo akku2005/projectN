@@ -1,6 +1,7 @@
 import { Suspense, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { RouterData } from "../router/RouterData";
+import Signin from "./pages/Signin";
 
 const Auth = () => {
   const { pathname } = useLocation();
@@ -22,7 +23,7 @@ const Auth = () => {
             </div>
           }
         >
-          <Outlet />
+          <Signin />
         </Suspense>
       </div>
       <div className="w-2/3 hidden lg:grid  h-dvh   place-content-center sticky top-0 right-0">
