@@ -1,10 +1,42 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Icons from "../../_root/constants/Icons";
 import { ThemeContext } from "../../components/context/ThemeContext";
 import { HiMenuAlt2 } from "react-icons/hi";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const Header = () => {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+  const [userInfo, setUserInfo] = useState(null); // State to store user info
+
+  // Fetch user info from API
+  const fetchUserInfo = async () => {
+    try {
+      const token = Cookies.get("userToken");
+      if (!token) {
+        throw new Error("User token cookie not found");
+      }
+
+      const response = await axios.get(
+        "http://13.233.36.198:5000/api/cloudnet/portal/dashboard/info",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Set userInfo from dashboardData
+      setUserInfo(response.data.dashboardData.userInfo);
+    } catch (error) {
+      console.error("Error fetching user info:", error.message);
+    }
+  };
+
+  // Fetch user info when component mounts
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
 
   return (
     <>
@@ -39,12 +71,18 @@ const Header = () => {
 
           {/* User Info and Avatar */}
           <div className="hidden md:flex items-center space-x-4">
-            <div className="flex flex-col">
-              <div className="name text-lg font-medium">akash</div>
-              <div className="email text-sm text-gray-500 hidden">
-                sm@akash@gmail.com
+            {userInfo ? (
+              <div className="flex flex-col">
+                <div className="name text-lg font-medium">
+                  {userInfo.nickname || userInfo.username}
+                </div>
+                <div className="email text-sm text-gray-500 hidden">
+                  {userInfo.email}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="name text-lg font-medium">Loading...</div>
+            )}
 
             {/* User Profile Picture */}
             <div className="w-[44px] h-[44px] rounded-full overflow-hidden">

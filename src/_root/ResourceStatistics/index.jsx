@@ -1,16 +1,74 @@
-import { useState } from "react";
-import { FaWifi } from "react-icons/fa"; // Import FaWifi icon
+// ResourceStatistics.js
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { FaWifi } from "react-icons/fa"; // Import WiFi icon from react-icons
+import Icons from "../constants/Icons"; // Adjust the path based on your structure
 
 const ResourceStatistics = () => {
-  const [selectedStat, setSelectedStat] = useState(0); // To track the selected statistic
+  const [deviceStats, setDeviceStats] = useState({
+    totalDevices: 0,
+    onlineTotal: 0,
+    alarmTotal: 0,
+    offlineTotal: 0,
+    inspectionReport: 0,
+  });
 
-  // Statistics data
+  const [error, setError] = useState(null);
+  const [selectedStat, setSelectedStat] = useState(0); // Track selected statistic
+
+  useEffect(() => {
+    const fetchDeviceStatistics = async () => {
+      try {
+        const token = Cookies.get("userToken");
+        if (!token) {
+          throw new Error("User token cookie not found");
+        }
+
+        const response = await axios.get(
+          "http://13.233.36.198:5000/api/cloudnet/portal/dashboard/info",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const deviceStatistics = response.data.dashboardData.deviceStatistics;
+
+        if (!deviceStatistics) {
+          throw new Error("No device statistics found in the response");
+        }
+
+        setDeviceStats({
+          totalDevices: deviceStatistics.all || 0,
+          onlineTotal: deviceStatistics.online || 0,
+          alarmTotal: deviceStatistics.alarm || 0,
+          offlineTotal: deviceStatistics.offline || 0,
+          inspectionReport: Object.values(
+            deviceStatistics.product || {}
+          ).reduce((a, b) => a + b, 0),
+        });
+      } catch (err) {
+        setError("Failed to fetch device statistics");
+        console.error(err);
+      }
+    };
+
+    fetchDeviceStatistics();
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>; // Error handling
+  }
+
+  // Statistics data for display
   const statistics = [
-    { count: 12, label: "Total Devices" },
-    { count: 6, label: "Online Total" },
-    { count: 4, label: "Alarm Total" },
-    { count: 6, label: "Offline Total" },
-    { count: 6, label: "Inspection Report" },
+    { count: deviceStats.totalDevices, label: "Total Devices" },
+    { count: deviceStats.onlineTotal, label: "Online Total" },
+    { count: deviceStats.alarmTotal, label: "Alarm Total" },
+    { count: deviceStats.offlineTotal, label: "Offline Total" },
+    { count: deviceStats.inspectionReport, label: "Inspection Report" },
   ];
 
   // Function to handle dot click and update selectedStat
@@ -19,9 +77,9 @@ const ResourceStatistics = () => {
   };
 
   return (
-    <div className="flex flex-col w-full  md:hidden">
+    <div className="flex flex-col w-full md:hidden">
       <h2 className="text-lg md:text-xl mb-4 flex items-center gap-2">
-        Resource Statistics
+        Resource Statistics <FaWifi className="text-green-500" />
       </h2>
 
       <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-4 shadow-lg flex flex-col justify-between w-full h-[200px] gap-4 border border-gray-100 border-opacity-30 flex-1">

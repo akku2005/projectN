@@ -1,38 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useNavigate } from "react-router-dom";
 import { RiDashboardHorizontalLine } from "react-icons/ri";
 import { IoWifiOutline, IoSettingsOutline } from "react-icons/io5";
 import { FaRegFolder } from "react-icons/fa";
 import { MdOutlineSecurity } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
 import { TbUsers } from "react-icons/tb";
-import { FiLogOut } from "react-icons/fi"; // Import Logout icon
-import { GiHamburgerMenu } from "react-icons/gi"; // Icon for opening sidebar
+import { FiLogOut } from "react-icons/fi";
+import { GiHamburgerMenu } from "react-icons/gi";
 import "../../_root/styles/Sidebar.scss";
 import Icons from "../../_root/constants/Icons";
-import Cookies from "js-cookie"; // Import js-cookie for handling cookies
+import Cookies from "js-cookie";
 
 const Sidebar = () => {
   const [activePage, setActivePage] = useState("Present");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleIconClick = (page) => {
     setActivePage(page);
-    setIsSidebarOpen(false); // Close sidebar on icon click for mobile
+    setIsSidebarOpen(false);
   };
 
   const handleLogout = () => {
-    // Remove the authentication token from cookies
     Cookies.remove("userToken");
 
-    // Optionally, you can remove other related cookies here
-
-    // Redirect the user to the Signin page
     navigate("/auth/sign-in");
   };
 
-  // Handle outside click to close sidebar for mobile
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (
