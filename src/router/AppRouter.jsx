@@ -72,10 +72,11 @@
 // ]);
 
 // export default AppRouter;
+
 import { createBrowserRouter, redirect } from "react-router-dom";
+import { lazy, Suspense } from "react"; // Suspense added
 import App from "../App";
 import Auth from "../_auth/Auth";
-import { lazy } from "react";
 import Dashboard from "../_root/Dashboard";
 import { RouterData } from "./RouterData";
 import OverViews from "../_root/pages/OverViews";
@@ -107,33 +108,46 @@ const authLoader = () => {
   return null; // Allow access to auth routes if not authenticated
 };
 
+// Lazy-loading fallback
+const LazyLoader = ({ children }) => (
+  <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+);
+
 const AppRouter = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
       {
-        path: "/", // Auth component at root path
-        element: <Auth />,
-        loader: authLoader, // Apply loader to check if the user is authenticated
+        path: "auth", // Use 'auth' as the path for the Auth component
+        element: <Auth />, // Renders Auth component with child routes
+        loader: authLoader, // Check authentication
         children: [
           {
-            path: RouterData.auth.children.signin.substring(1), // Remove leading '/' for relative path
-            element: <Signin />,
+            path: "sign-in", // Matches RouterData.auth.children.signin
+            element: (
+              <LazyLoader>
+                <Signin />
+              </LazyLoader>
+            ),
           },
           {
-            path: RouterData.auth.children.signup.substring(1), // Remove leading '/' for relative path
-            element: <Signup />,
+            path: "sign-up", // Matches RouterData.auth.children.signup
+            element: (
+              <LazyLoader>
+                <Signup />
+              </LazyLoader>
+            ),
           },
         ],
       },
       {
-        path: "dashboard", // Relative path for dashboard
+        path: "dashboard",
         element: <Dashboard />,
-        loader: protectedLoader, // Apply the loader for authentication check
+        loader: protectedLoader,
         children: [
           {
-            path: "", // Default path for the dashboard
+            path: "",
             element: <OverViews />,
           },
           {
