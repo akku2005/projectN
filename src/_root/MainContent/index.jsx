@@ -85,7 +85,7 @@ const MainContent = ({ isDarkMode }) => {
       const workgroupData = response.data.dashboardData.workgroupTop;
       setWorkgroupTop(workgroupData || []);
     } catch (err) {
-      setError("Failed to fetch device statistics");
+      // setError("Failed to fetch device statistics");
       console.error(err);
     } finally {
       setLoading(false); // Stop loading
@@ -188,9 +188,9 @@ const MainContent = ({ isDarkMode }) => {
             {loading ? (
               <div
                 className="ProjectInfo bg-white bg-opacity-10 backdrop-blur-lg 
-          rounded-lg shadow-lg flex items-center justify-center 
-          w-full md:w-[calc(50%-1rem)] h-[200px] border border-gray-100 
-          border-opacity-30 p-5"
+        rounded-lg shadow-lg flex items-center justify-center 
+        w-full md:w-[calc(50%-1rem)] h-[200px] border border-gray-100 
+        border-opacity-30 p-5"
               >
                 <p className="text-xl text-gray-500">Loading...</p>
               </div>
@@ -199,13 +199,15 @@ const MainContent = ({ isDarkMode }) => {
                 <div
                   key={project.gid}
                   className="ProjectInfo bg-white bg-opacity-10 backdrop-blur-lg 
-            rounded-lg shadow-lg flex flex-col justify-between 
-            w-full md:w-[calc(50%-1rem)] h-[200px] gap-4 border 
-            border-gray-100 border-opacity-30 p-5 md:h-auto"
+          rounded-lg shadow-lg flex flex-col justify-between 
+          w-full md:w-[calc(50%-1rem)] h-[200px] gap-4 border 
+          border-gray-100 border-opacity-30 p-5 md:h-auto"
                 >
                   <div className="flex items-center mb-2 gap-4">
                     <FaWifi className="h-[24px] w-[24px] text-[rgb(86,238,104)]" />
-                    <h2 className="text-xl">{project.name}</h2>
+                    <h2 className="text-xl">
+                      {project.name.replace(/[^\x00-\x7F]/g, "").trim()}
+                    </h2>
                   </div>
                   <p className="text-sm md:text-base mb-4">
                     Creation Time: {project.created_at}
@@ -228,9 +230,9 @@ const MainContent = ({ isDarkMode }) => {
             ) : (
               <div
                 className="ProjectInfo bg-white bg-opacity-10 backdrop-blur-lg 
-          rounded-lg shadow-lg flex items-center justify-center 
-          w-full md:w-[calc(50%-1rem)] h-[200px] border border-gray-100 
-          border-opacity-30 p-5"
+        rounded-lg shadow-lg flex items-center justify-center 
+        w-full md:w-[calc(50%-1rem)] h-[200px] border border-gray-100 
+        border-opacity-30 p-5"
               >
                 <p className="text-xl text-gray-500">No projects found...</p>
               </div>
@@ -257,19 +259,13 @@ const MainContent = ({ isDarkMode }) => {
             </div>
 
             {/* Conditional Rendering for Mobile and Large Screens */}
-            <div className="hidden md:flex md:space-x-4 ">
-              {/* Large Screen Boxes */}
-              <div className="flex flex-row space-x-4 w-full ">
-                <div className="PendingInfo flex-1 rounded-lg">
-                  <PendingInfoBox count={"02"} label="Pending Project" />
-                </div>
-                <div className="PendingInfo flex-1 rounded-lg">
-                  <PendingInfoBox count={"03"} label="Pending Inspection" />
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl :grid-cols-2 gap-4">
+              <div className="PendingInfo flex-1 rounded-lg">
+                <PendingInfoBox count={"02"} label="Pending Project" />
               </div>
-            </div>
-            <div className="md:hidden flex flex-col space-y-4">
-              <MobilePendingInfoSection count={"01"} label="Pending License" />
+              <div className="PendingInfo flex-1 rounded-lg">
+                <PendingInfoBox count={"03"} label="Account Change" />
+              </div>
             </div>
           </div>
         </div>

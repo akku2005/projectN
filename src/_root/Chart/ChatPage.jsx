@@ -119,7 +119,7 @@ const UserActivity = () => {
 
   return (
     <div>
-      <div className="userActivityChart bg-white bg-opacity-10 rounded-lg p-4 md:p-6 border border-gray-100 border-opacity-30">
+      <div className="userActivityChart bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-6 border border-gray-100 border-opacity-50 w-full h-auto sm:h-[400px] lg:h-[390px] sm:w-auto mt-4">
         {/* Custom legend for the chart */}
         <div className=" flex items-center mb-4 justify-between">
           <div className=" flex flex-wrap flex-col md:flex-row items-start">

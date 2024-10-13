@@ -72,24 +72,23 @@
 // ]);
 
 // export default AppRouter;
-
 import { createBrowserRouter, redirect } from "react-router-dom";
-import { lazy, Suspense } from "react"; // Suspense added
 import App from "../App";
 import Auth from "../_auth/Auth";
-import Dashboard from "../_root/Dashboard";
+import { lazy } from "react";
 import { RouterData } from "./RouterData";
 import OverViews from "../_root/pages/OverViews";
 import Settings from "../_root/pages/Settings";
-import Cookies from "js-cookie"; // Ensure js-cookie is installed
+import Cookies from "js-cookie";
 
 const Signin = lazy(() => import("../_auth/pages/Signin"));
 const Signup = lazy(() => import("../_auth/pages/Signup"));
+const Dashboard = lazy(() => import("../_root/Dashboard"));
 
 // Helper function to check if the user is authenticated
 const isAuthenticated = () => {
-  const token = Cookies.get("userToken"); // Ensure cookie name matches the one set in Signin component
-  return !!token; // Return true if token exists
+  const token = Cookies.get("userToken");
+  return !!token;
 };
 
 // Loader function for protected routes
@@ -97,57 +96,45 @@ const protectedLoader = () => {
   if (!isAuthenticated()) {
     return redirect(RouterData.auth.children.signin); // Redirect to sign-in if not authenticated
   }
-  return null; // Allow access if authenticated
+  return null;
 };
 
 // Loader function for auth routes
 const authLoader = () => {
   if (isAuthenticated()) {
-    return redirect(RouterData.root.dashboard); // Redirect to dashboard if already authenticated
+    return redirect(RouterData.root.dashboard); // Redirect to dashboard if authenticated
   }
-  return null; // Allow access to auth routes if not authenticated
+  return null;
 };
 
-// Lazy-loading fallback
-const LazyLoader = ({ children }) => (
-  <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-);
-
+// Define routes
 const AppRouter = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
       {
-        path: "auth", // Use 'auth' as the path for the Auth component
-        element: <Auth />, // Renders Auth component with child routes
-        loader: authLoader, // Check authentication
+        path: "/", // Root path displays Auth component with Signin by default
+        element: <Auth />,
+        loader: authLoader,
         children: [
           {
-            path: "sign-in", // Matches RouterData.auth.children.signin
-            element: (
-              <LazyLoader>
-                <Signin />
-              </LazyLoader>
-            ),
+            index: true, // Set Signin as the default page at '/'
+            element: <Signin />,
           },
           {
-            path: "sign-up", // Matches RouterData.auth.children.signup
-            element: (
-              <LazyLoader>
-                <Signup />
-              </LazyLoader>
-            ),
+            path: "sign-up", // Access signup page via '/sign-up'
+            element: <Signup />,
           },
         ],
       },
       {
-        path: "dashboard",
+        path: "dashboard", // Dashboard routes
         element: <Dashboard />,
         loader: protectedLoader,
         children: [
           {
-            path: "",
+            index: true,
             element: <OverViews />,
           },
           {

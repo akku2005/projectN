@@ -9,7 +9,7 @@ const Auth = () => {
   // Redirect to Signin if the user lands on "/auth" or "/auth/"
   useEffect(() => {
     if (pathname === "/auth" || pathname === "/auth/") {
-      navigate(RouterData.auth.children.signin); // Redirect to Signin page
+      navigate(RouterData.auth.children.signin);
     }
   }, [navigate, pathname]);
 

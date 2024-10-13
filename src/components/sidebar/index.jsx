@@ -25,7 +25,7 @@ const Sidebar = () => {
   const handleLogout = () => {
     Cookies.remove("userToken");
 
-    navigate("/auth/sign-in");
+    navigate("/");
   };
 
   useEffect(() => {
