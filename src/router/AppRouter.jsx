@@ -84,6 +84,7 @@ import Cookies from "js-cookie";
 const Signin = lazy(() => import("../_auth/pages/Signin"));
 const Signup = lazy(() => import("../_auth/pages/Signup"));
 const Dashboard = lazy(() => import("../_root/Dashboard"));
+const Devices = lazy(() => import("../_root/pages/Devices"));
 
 // Helper function to check if the user is authenticated
 const isAuthenticated = () => {
@@ -142,6 +143,10 @@ const AppRouter = createBrowserRouter([
             element: <Settings />,
           },
         ],
+      },
+      {
+        path: "devices",
+        element: <Devices />,
       },
     ],
   },
