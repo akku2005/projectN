@@ -11,5 +11,6 @@ export const RouterData = {
     dashboard: "/dashboard",
     settings: "/settings",
     devices: "/devices",
+    folder: "/folder",
   },
 };

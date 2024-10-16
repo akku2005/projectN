@@ -18,15 +18,9 @@ const Dashboard = () => {
   return (
     <Suspense fallback={<LoadingFallback />}>
       <div className={`dashboard-container ${isDarkMode ? "dark" : "light"}`}>
-        {/* Sidebar */}
-        <Sidebar />
-
-        {/* Main Content */}
+        <Sidebar /> {/* Sidebar */}
         <div className="dashboard-content">
-          {/* Header */}
-          <Header />
-
-          {/* Statistics */}
+          <Header /> {/* Header */}
           <div className="statistics">
             <MainContent />
           </div>

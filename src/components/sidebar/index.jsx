@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { RiDashboardHorizontalLine } from "react-icons/ri";
 import { IoWifiOutline, IoSettingsOutline } from "react-icons/io5";
 import { FaRegFolder } from "react-icons/fa";
@@ -13,22 +13,44 @@ import Icons from "../../_root/constants/Icons";
 import Cookies from "js-cookie";
 
 const Sidebar = () => {
-  const [activePage, setActivePage] = useState("Present");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleIconClick = (page) => {
-    setActivePage(page);
-    setIsSidebarOpen(false);
+  // Set active page based on current location
+  const getActivePage = () => {
+    switch (location.pathname) {
+      case "/dashboard":
+        return "Present";
+      case "/devices":
+        return "Devices";
+      case "/folder":
+        return "Notifications";
+      case "/security":
+        return "Security";
+      case "/lock":
+        return "Lock";
+      case "/users":
+        return "Users";
+      case "/settings":
+        return "Settings";
+      default:
+        return "";
+    }
+  };
+
+  const handleIconClick = (path) => {
+    setIsSidebarOpen(false); // Close the sidebar
+    navigate(path); // Navigate to the new route
   };
 
   const handleLogout = () => {
     Cookies.remove("userToken");
-
     navigate("/");
   };
 
   useEffect(() => {
+    // Close the sidebar when clicking outside
     const handleOutsideClick = (e) => {
       if (
         isSidebarOpen &&
@@ -40,7 +62,6 @@ const Sidebar = () => {
     };
 
     document.addEventListener("click", handleOutsideClick);
-
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
@@ -62,85 +83,79 @@ const Sidebar = () => {
           isSidebarOpen ? "open" : ""
         }`}
       >
-        {/* Top Section: Logo */}
         <div className="logo mb-4">
           <img src={Icons.Logo} alt="Logo" className="w-16 h-16" />
         </div>
 
-        {/* Horizontal line under the logo */}
         <div className="horizontal-line border-t-2 border-gray-300 my-5 mb-3 justify-center items-center" />
 
-        {/* Icons Section */}
         <div className="icons flex-grow flex flex-col items-center">
           <Link
             to="/dashboard"
             className={`icon-container ${
-              activePage === "Present" ? "active" : ""
+              getActivePage() === "Present" ? "active" : ""
             }`}
-            onClick={() => handleIconClick("Present")}
+            onClick={() => handleIconClick("/dashboard")}
           >
             <RiDashboardHorizontalLine className="icon w-6 h-6 text-white" />
           </Link>
           <Link
             to="/devices"
             className={`icon-container ${
-              activePage === "Devices" ? "active" : ""
+              getActivePage() === "Devices" ? "active" : ""
             }`}
-            onClick={() => handleIconClick("Devices")}
+            onClick={() => handleIconClick("/devices")}
           >
             <IoWifiOutline className="icon w-6 h-6 text-white" />
           </Link>
-
           <Link
-            to="/notifications"
+            to="/folder"
             className={`icon-container ${
-              activePage === "Notifications" ? "active" : ""
+              getActivePage() === "Notifications" ? "active" : ""
             }`}
-            onClick={() => handleIconClick("Notifications")}
+            onClick={() => handleIconClick("/notifications")}
           >
             <FaRegFolder className="icon w-6 h-6 text-white" />
           </Link>
           <Link
             to="/security"
             className={`icon-container ${
-              activePage === "Security" ? "active" : ""
+              getActivePage() === "Security" ? "active" : ""
             }`}
-            onClick={() => handleIconClick("Security")}
+            onClick={() => handleIconClick("/security")}
           >
             <MdOutlineSecurity className="icon w-6 h-6 text-white" />
           </Link>
           <Link
             to="/lock"
             className={`icon-container ${
-              activePage === "Lock" ? "active" : ""
+              getActivePage() === "Lock" ? "active" : ""
             }`}
-            onClick={() => handleIconClick("Lock")}
+            onClick={() => handleIconClick("/lock")}
           >
             <CiLock className="icon w-6 h-6 text-white" />
           </Link>
           <Link
             to="/users"
             className={`icon-container ${
-              activePage === "Users" ? "active" : ""
+              getActivePage() === "Users" ? "active" : ""
             }`}
-            onClick={() => handleIconClick("Users")}
+            onClick={() => handleIconClick("/users")}
           >
             <TbUsers className="icon w-6 h-6 text-white" />
           </Link>
         </div>
 
-        {/* Bottom Section: Settings and Logout */}
         <div className="settings mt-4 flex flex-col items-center space-y-4">
           <Link
             to="/settings"
             className={`icon-container ${
-              activePage === "Settings" ? "active" : ""
+              getActivePage() === "Settings" ? "active" : ""
             }`}
-            onClick={() => handleIconClick("Settings")}
+            onClick={() => handleIconClick("/settings")}
           >
             <IoSettingsOutline className="icon w-6 h-6 text-white" />
           </Link>
-          {/* Logout Icon */}
           <button
             onClick={handleLogout}
             className="icon-container focus:outline-none"
@@ -160,47 +175,48 @@ const Sidebar = () => {
         <Link
           to="/dashboard"
           className={`icon-container ${
-            activePage === "Present" ? "active" : ""
+            getActivePage() === "Present" ? "active" : ""
           }`}
-          onClick={() => handleIconClick("Present")}
+          onClick={() => handleIconClick("/dashboard")}
         >
           <RiDashboardHorizontalLine className="icon w-6 h-6 text-white" />
         </Link>
         <Link
           to="/devices"
           className={`icon-container ${
-            activePage === "Devices" ? "active" : ""
+            getActivePage() === "Devices" ? "active" : ""
           }`}
-          onClick={() => handleIconClick("Devices")}
+          onClick={() => handleIconClick("/devices")}
         >
           <IoWifiOutline className="icon w-6 h-6 text-white" />
         </Link>
         <Link
           to="/notifications"
           className={`icon-container ${
-            activePage === "Notifications" ? "active" : ""
+            getActivePage() === "Notifications" ? "active" : ""
           }`}
-          onClick={() => handleIconClick("Notifications")}
+          onClick={() => handleIconClick("/notifications")}
         >
           <FaRegFolder className="icon w-6 h-6 text-white" />
         </Link>
         <Link
           to="/users"
-          className={`icon-container ${activePage === "Users" ? "active" : ""}`}
-          onClick={() => handleIconClick("Users")}
+          className={`icon-container ${
+            getActivePage() === "Users" ? "active" : ""
+          }`}
+          onClick={() => handleIconClick("/users")}
         >
           <TbUsers className="icon w-6 h-6 text-white" />
         </Link>
         <Link
           to="/settings"
           className={`icon-container ${
-            activePage === "Settings" ? "active" : ""
+            getActivePage() === "Settings" ? "active" : ""
           }`}
-          onClick={() => handleIconClick("Settings")}
+          onClick={() => handleIconClick("/settings")}
         >
           <IoSettingsOutline className="icon w-6 h-6 text-white" />
         </Link>
-        {/* Logout Icon for Mobile */}
         <button
           onClick={handleLogout}
           className="icon-container focus:outline-none"

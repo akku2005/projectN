@@ -1,102 +1,133 @@
 // src/styles/Dashboard.scss
 
 .dashboard-container {
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-  
-    &.dark {
-      background-color: #121212; 
-      color: white;
-  
-      .dashboard-content {
-        background: linear-gradient(
-          to bottom right,
-          #3f633f 0%,
-          #204c2b 50%,
-          #0eb32f 100%
-        );
-        color: #fff;
-      }
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+
+  &.dark {
+    background-color: #121212; // Dark mode background
+    color: white;
+
+    .dashboard-content {
+      background: linear-gradient(
+        to bottom right,
+        #3f633f 0%,
+        #204c2b 50%,
+        #0eb32f 100%
+      );
+      color: #fff;
     }
+    .statistics{
+      margin-left: -24px;
+      height: 100vh;
+      
+    }
+  }
   
-    &.light {
-      background-color: #f5f5f5; 
+
+  &.light {
+    background-color: #f5f5f5; 
+    color: black;
+
+    .dashboard-content {
+      background: linear-gradient(
+        to bottom right,
+        #dffde8, 
+        #dffde8 60%, 
+        #c0ffc0 80%, 
+        #bbeebd, 
+        #b1dab5 
+      );
       color: black;
-  
-      .dashboard-content {
-        background: linear-gradient(
-          to bottom right,
-          #dffde8, 
-          #dffde8 60%, 
-          #c0ffc0 80%, 
-          #bbeebd, 
-          #b1dab5 
-        );
-        color: black;
-      }
-      
-    
-    
-    
-      
+    }
+    .ProjectInfo{
+      background-color: white;
+    }
+    .PendingInfo{
+      background-color: white;
+    }
+    .disposeButton {
+      background: linear-gradient(180deg, #3AE659, #048346); 
+      color: white;
+      font-weight: 600;
       
     }
-    
-  
-    
+    .userActivityChart {
+      border: 2px solid #56EE68; // Solid border with the specified color
+      border-radius: 16px; // Rounded corners
+      color: darkgray; 
+      .chartText{
+        color: #121212;
+      }
+  }
+  .DeviceStatistics{
+    border: 2px solid #56EE68; // Solid border with the specified color
+      
+      color: darkgray; 
+      .chartText{
+        color: #121212;
+      }
   }
   
   
-  .dashboard-content {
-    margin-left: 0px; // No left margin, content takes full width
-    width: 100%; // Full width of the dashboard
-    height: 100vh; // Full height of the viewport, even if content exceeds
-    overflow-y: auto; // Adds vertical scrolling when content overflows
     
+    
+  }
   
-    // Updated background gradient
-    background: linear-gradient(
-      to bottom right, 
-      #3f633f 0%,
-      #204c2b 50%,   
-      #0eb32f 100%, 
+
   
-    );
+}
+
+
+.dashboard-content {
+  margin-left: 0px; // No left margin, content takes full width
+  width: 100%; // Full width of the dashboard
+  height: 100vh; // Full height of the viewport, even if content exceeds
+  overflow-y: auto; // Adds vertical scrolling when content overflows
+  padding: 20px;
+
+  // Updated background gradient
+  background: linear-gradient(
+    to bottom right, 
+    #3f633f 0%,
+    #204c2b 50%,   
+    #0eb32f 100%, 
+
+  );
+
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+
+  // Fixes the height and ensures scrolling
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.header {
+
+  justify-content: space-between;
+  align-items: center;
   
-    color: #fff;
-    font-family: 'Arial', sans-serif;
   
-    // Fixes the height and ensures scrolling
+  .title {
+    font-size: 24px;
+  }
+
+  .user-info {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-  
-  .header {
-    padding: 20px;
-    justify-content: space-between;
     align-items: center;
-    
-    
-    .title {
-      font-size: 24px;
+
+    img {
+      border-radius: 50%;
+      width: 50px;
+      height: 80px;
+      margin-right: 10px;
     }
-  
-    .user-info {
-      display: flex;
-      align-items: center;
-  
-      img {
-        border-radius: 50%;
-        width: 50px;
-        height: 80px;
-        margin-right: 10px;
-      }
-  
-      .name {
-        font-weight: bold;
-      }
+
+    .name {
+      font-weight: bold;
     }
   }
-  
+}
