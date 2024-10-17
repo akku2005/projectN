@@ -134,3 +134,162 @@
     display: none;
   }
 }
+
+
+// // akash
+
+// .sidebar {
+//   background-color: #0D0D0D; /* Example background color for the sidebar */
+//   width: 100px; /* Adjust width as per your design */
+// }
+
+// .icon-container {
+//   position: relative;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 50px; /* Keep this the same as the active state */
+//   height: 50px; /* Keep this the same as the active state */
+//   padding: 12px;
+//   border-radius: 8px;
+//   cursor: pointer;
+//   box-sizing: border-box; /* Include border in the element’s dimensions */
+// }
+
+// /* Adjusted styles for active icon on mobile */
+// .icon-container.active {
+//   border: 1px solid #56EE68; /* Active border color */
+//   border-radius: 4px; /* Maintain rounded corners */
+// }
+
+// /* Pseudo-element for semicircle effect on large screens only */
+// @media (min-width: 781px) {
+//   .icon-container.active::after {
+//     content: ''; /* Required for pseudo-element */
+//     position: absolute;
+//     right: -25px; /* Adjust this value to ensure the semicircle aligns well */
+//     top: 50%; /* Center vertically */
+//     transform: translateY(-50%); /* Adjust to vertical center */
+//     width: 8px; /* Width of the semicircle */
+//     height: 50px; /* Height of the semicircle */
+//     background-color: #56EE68; /* Color of the semicircle */
+//     border-top-left-radius: 25px; /* Increase radius for smoother corners */
+//     border-bottom-left-radius: 25px; /* Increase radius for smoother corners */
+//   }
+// }
+
+// .icon {
+//   color: #374151; /* Default icon color */
+// }
+
+// .icon-container.active .icon {
+//   color: #fff; /* Active icon color */
+// }
+
+// .logo img {
+//   width: 100%; /* Make sure the logo is responsive */
+// }
+
+// @media (max-width: 780px) {
+//   .sidebar {
+//     width: 70px; /* Reduce sidebar width on mobile */
+//     padding: 8px; /* Adjust padding to fit smaller screens */
+//   }
+
+//   .icon-container {
+//     width: 40px; /* Decrease the size of the icon container */
+//     height: 40px;
+//     padding: 8px;
+//   }
+
+//   .icon {
+//     width: 20px; /* Adjust icon size */
+//     height: 20px;
+//   }
+
+//   /* Adjusted styles for active icon on mobile */
+//   .icon-container.active {
+//     border: 1px solid #56EE68; /* Active border color */
+//     border-radius: 4px; /* Maintain rounded corners */
+//   }
+
+//   /* Pseudo-element for better visual effect on mobile */
+//   .icon-container.active::after {
+//     content: ''; /* Required for pseudo-element */
+//     position: absolute;
+//     right: 0; /* Align with the right edge */
+//     top: 50%; /* Center vertically */
+//     transform: translateY(-50%); /* Adjust to vertical center */
+//     width: 100%; /* Full width of the icon container */
+//     height: 2px; /* Height of the border */
+//     background-color: #56EE68; /* Color of the border */
+//     border-radius: 2px; /* Slightly rounded corners */
+//   }
+
+//   /* No semicircle effect on mobile */
+//   .icon-container.active::after {
+//     content: none;
+//   }
+
+//   .logo img {
+//     width: 50px; /* Scale down the logo for mobile */
+//     height: 50px; /* Ensure proportional scaling */
+//   }
+// }
+
+// /* For very small screens (e.g., mobile phones under 500px wide) */
+// @media (max-width: 500px) {
+//   .sidebar-container {
+//     position: relative;
+//   }
+
+//   .sidebar {
+//     width: 100px;
+//   }
+
+//   .icon-container {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     width: 50px;
+//     height: 50px;
+//     padding: 12px;
+//     border-radius: 8px;
+//     cursor: pointer;
+//   }
+
+//   .icon-container.active {
+//     border: 1px solid #56EE68;
+//     border-radius: 4px;
+//   }
+
+//   .logo img {
+//     width: 100%;
+//   }
+
+//   /* Adjust the bottom navigation for smaller screens */
+//   .bottom-nav {
+//     background-color: #0d0d0d;
+//     height: 60px;
+//     display: flex;
+//     justify-content: space-around;
+//   }
+
+//   .icon-container {
+//     color: #374151;
+//   }
+
+//   .icon-container.active .icon {
+//     color: #fff;
+//   }
+
+//   .hamburger-icon {
+//     display: block;
+//   }
+// }
+
+// @media (min-width: 500px) {
+//   .hamburger-icon {
+//     display: none;
+//   }
+// }

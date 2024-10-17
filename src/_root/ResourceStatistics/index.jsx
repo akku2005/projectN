@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { FaWifi } from "react-icons/fa"; // Import WiFi icon from react-icons
-import Icons from "../constants/Icons"; // Adjust the path based on your structure
 
 const ResourceStatistics = () => {
   const [deviceStats, setDeviceStats] = useState({
@@ -77,7 +76,7 @@ const ResourceStatistics = () => {
   };
 
   return (
-    <div className="flex flex-col w-full md:hidden">
+    <div className="  flex flex-col w-full md:hidden">
       <h2 className="text-lg md:text-xl mb-4 flex items-center gap-2">
         Resource Statistics <FaWifi className="text-green-500" />
       </h2>

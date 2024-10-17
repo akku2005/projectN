@@ -25,7 +25,7 @@ const Sidebar = () => {
       case "/devices":
         return "Devices";
       case "/folder":
-        return "Notifications";
+        return "Folder"; // Corrected this line
       case "/security":
         return "Security";
       case "/lock":
@@ -111,9 +111,9 @@ const Sidebar = () => {
           <Link
             to="/folder"
             className={`icon-container ${
-              getActivePage() === "Notifications" ? "active" : ""
+              getActivePage() === "Folder" ? "active" : "" // Corrected this line
             }`}
-            onClick={() => handleIconClick("/notifications")}
+            onClick={() => handleIconClick("/folder")}
           >
             <FaRegFolder className="icon w-6 h-6 text-white" />
           </Link>
@@ -191,11 +191,11 @@ const Sidebar = () => {
           <IoWifiOutline className="icon w-6 h-6 text-white" />
         </Link>
         <Link
-          to="/notifications"
+          to="/folder"
           className={`icon-container ${
-            getActivePage() === "Notifications" ? "active" : ""
+            getActivePage() === "Folder" ? "active" : "" // Corrected this line
           }`}
-          onClick={() => handleIconClick("/notifications")}
+          onClick={() => handleIconClick("/folder")}
         >
           <FaRegFolder className="icon w-6 h-6 text-white" />
         </Link>
