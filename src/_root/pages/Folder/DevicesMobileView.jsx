@@ -36,7 +36,7 @@ const DevicesMobileView = () => {
         </div>
       </div>
 
-      <div className="bg-white bg-opacity-10 backdrop-blur-lg border-white rounded-lg p-6 w-full shadow-lg mt-2">
+      <div className="bg-white bg-opacity-10 backdrop-blur-lg border-white rounded-lg p-6 w-full shadow-lg mt-4">
         <p className="text-lg mb-2">Project Info</p>
         <div className="flex items-center mb-4">
           <i className="fas fa-layer-group text-3xl mr-3 text-green-400"></i>

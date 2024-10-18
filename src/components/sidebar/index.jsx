@@ -199,14 +199,15 @@ const Sidebar = () => {
         >
           <FaRegFolder className="icon w-6 h-6 text-white" />
         </Link>
+
         <Link
-          to="/users"
+          to="/security"
           className={`icon-container ${
-            getActivePage() === "Users" ? "active" : ""
+            getActivePage() === "Security" ? "active" : ""
           }`}
-          onClick={() => handleIconClick("/users")}
+          onClick={() => handleIconClick("/security")}
         >
-          <TbUsers className="icon w-6 h-6 text-white" />
+          <MdOutlineSecurity className="icon w-6 h-6 text-white" />
         </Link>
         <Link
           to="/settings"
