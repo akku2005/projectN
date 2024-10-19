@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/sidebar";
-import MainContent from "./MainContent";
 import "../_root/styles/Dashboard.scss";
 import { ThemeContext } from "../components/context/ThemeContext";
+import { Outlet } from "react-router-dom";
 
 // Fallback Loader Component
 const LoadingFallback = () => (
@@ -18,11 +18,12 @@ const Dashboard = () => {
   return (
     <Suspense fallback={<LoadingFallback />}>
       <div className={`dashboard-container ${isDarkMode ? "dark" : "light"}`}>
-        <Sidebar /> {/* Sidebar */}
+        <Sidebar /> {/* Sidebar should only be here */}
         <div className="dashboard-content">
-          <Header /> {/* Header */}
+          <Header /> {/* Header should only be here */}
           <div className="statistics">
-            <MainContent />
+            {/* This Outlet will render content based on child routes */}
+            <Outlet />
           </div>
         </div>
       </div>
