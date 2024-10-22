@@ -456,7 +456,7 @@ const Devices = () => {
                 <div className="flex space-x-1">
                   <button
                     className={`w-6 h-6 sm:w-7 sm:h-7 ${
-                      isDarkMode ? "text-green-500" : "bg-white"
+                      isDarkMode ? "bg-gray-800" : "bg-white"
                     } flex items-center justify-center rounded-md`}
                   >
                     <FontAwesomeIcon
@@ -483,11 +483,28 @@ const Devices = () => {
                 {/* Status Dropdown */}
                 <div ref={statusDropdownRef} className="flex-shrink-0">
                   <button
-                    className="px-4 py-2 bg-white bg-opacity-10 border border-gray-300 border-opacity-50 rounded-lg flex items-center space-x-2"
-                    onClick={() => toggleDropdown(0)}
+                    className={`px-2 py-1 sm:px-3 sm:py-2 ${
+                      isDarkMode
+                        ? "bg-gray-800 bg-opacity-20 backdrop-filter backdrop-blur-lg"
+                        : "bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg"
+                    } rounded-lg text-xs sm:text-sm flex items-center`}
+                    onClick={() =>
+                      setIsStatusDropdownOpen(!isStatusDropdownOpen)
+                    }
                   >
-                    <span>All</span>
-                    <FontAwesomeIcon icon={faChevronDown} className="ml-2" />
+                    <span
+                      className={`truncate max-w-[80px] sm:max-w-[100px] ${
+                        isDarkMode ? "text-white" : "text-black"
+                      }`}
+                    >
+                      {statusFilter}
+                    </span>
+                    <FontAwesomeIcon
+                      icon={faChevronDown}
+                      className={`ml-1 text-xs sm:text-sm ${
+                        isDarkMode ? "text-white" : "text-black"
+                      }`}
+                    />
                   </button>
                   {isStatusDropdownOpen && (
                     <div
@@ -733,7 +750,7 @@ const Devices = () => {
         <div className="flex mt-12">
           {/* Sidebar - Project List */}
           <div
-            className={`projectList bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-tr-lg rounded-br-lg p-5 border-t border-r border-gray-100 w-full sm:w-[240px] lg:h-screen ${
+            className={`projectList PendingInfo bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-tr-lg rounded-br-lg p-5 border-t border-r border-gray-100 w-full sm:w-[240px] lg:h-screen ${
               isDarkMode ? "dark" : "light"
             }`}
           >
@@ -906,7 +923,7 @@ const Devices = () => {
                         placeholder="Search"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="px-4 py-2 bg-transparent text-white focus:outline-none w-full sm:w-auto"
+                        className="px-4 py-2 bg-transparent focus:outline-none w-full sm:w-auto"
                       />
                       <FontAwesomeIcon icon={faSearch} className="mr-2" />
                     </div>
@@ -990,7 +1007,7 @@ const Devices = () => {
                             <li className="px-4 py-2">
                               <button
                                 onClick={handleApplyFilters}
-                                className="w-full bg-green-500 text-white rounded-lg py-2 hover:bg-green-600"
+                                className="w-full bg-green-800 text-white rounded-lg py-2 hover:bg-green-700"
                               >
                                 Apply
                               </button>
@@ -1005,15 +1022,15 @@ const Devices = () => {
             </div>
 
             {/* Project Info Section */}
-            <div className="ProjectInfo w-full mt-2 h-full">
+            <div className=" w-full mt-2 ">
               {/* Device Table or List */}
-              <div className="mt-4 overflow-auto h-full">
+              <div className="mt-4 overflow-auto h-[500px]">
                 {loading ? (
                   <div className="text-center py-4 text-gray-400">
                     Loading devices...
                   </div>
                 ) : (
-                  <table className="table-auto w-full h-full  ">
+                  <table className="ProjectInfo table-auto w-full h-auto  ">
                     <thead>
                       <tr className="bg-white bg-opacity-10 ">
                         <th className="py-3 px-4 w-[5%]">

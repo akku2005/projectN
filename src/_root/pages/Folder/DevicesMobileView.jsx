@@ -1,239 +1,130 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlus,
-  faLayerGroup,
-  faSearch,
-  faFilter,
-  faChevronDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faLayerGroup } from "@fortawesome/free-solid-svg-icons";
+import "../../styles/Dashboard.scss";
 
-const DevicesMobileView = ({
-  deviceData,
-  projects,
-  selectedProject,
-  selectedChildProject,
-  contentMapNumbers,
-  loading,
-  error,
-  statusFilter,
-  modelFilter,
-  searchTerm,
-  handleProjectClick,
-  handleChildProjectClick,
-  handleDeviceTypeClick,
-  toggleDropdown,
-  handleSelection,
-  handleCheckboxChange,
-  handleApplyFilters,
-  setSearchTerm,
-  setStatusFilter,
-  setModelFilter,
-}) => {
+const DevicesMobileView = ({ projects, setProjects }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [projectNotes, setProjectNotes] = useState("");
   const formRef = useRef();
-  const [openIndex, setOpenIndex] = useState(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [checkedItems, setCheckedItems] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add logic to handle new project creation
-    setIsFormOpen(false);
+    // Add the new project to the projects array
+    const newProject = {
+      name: projectName,
+      notes: projectNotes,
+      device_nums: 0, // Initialize with 0 devices
+    };
+    setProjects((prevProjects) => [...prevProjects, newProject]);
+    // Reset form fields
+    setProjectName("");
+    setProjectNotes("");
+    setIsFormOpen(false); // Close the form
   };
 
+  // Close form if clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (formRef.current && !formRef.current.contains(event.target)) {
         setIsFormOpen(false);
       }
     };
+
+    // Attach event listener
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
+      // Clean up the event listener
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   return (
     <div className="p-4 sm:p-6 md:p-8 mb-10">
-      {/* ... (rest of the component remains the same) ... */}
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-xl">Project</h1>
+        <button
+          onClick={() => setIsFormOpen(true)}
+          className="bg-green-500 p-2 rounded-md h-8 flex justify-center items-center"
+        >
+          <FontAwesomeIcon icon={faPlus} className="text-white" />
+        </button>
+      </div>
 
-      <div className="bg-white bg-opacity-10 backdrop-blur-lg border-white rounded-lg p-6 w-full shadow-lg mt-4 mb-10">
-        <p className="text-lg mb-2">Device List</p>
-        <div className="flex items-center mb-4">
-          <FontAwesomeIcon icon={faSearch} className="mr-2" />
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search"
-            className="border p-2 rounded-md w-full"
-          />
-        </div>
-
-        <div className="flex gap-5 mb-4">
-          {contentMapNumbers.map((item, index) => (
-            <button
+      <div>
+        <h2 className="text-xl mb-2">Projects</h2>
+        <div className="space-y-4">
+          {projects.map((project, index) => (
+            <div
               key={index}
-              className={`flex flex-col items-center w-[100px] h-[100px] p-2 transition duration-200 ${
-                activeIndex === index
-                  ? "text-green-500 font-semibold"
-                  : "text-gray-400"
-              }`}
-              onClick={() => handleDeviceTypeClick(index)}
+              className="PendingInfo bg-white bg-opacity-10 backdrop-blur-lg border-white rounded-lg p-4 flex flex-col sm:flex-row justify-between items-start"
             >
-              <div className="flex items-center">
-                <h2 className="text-5xl">{item.number}</h2>
-                <p className="text-xl ml-2">{item.label}</p>
+              <div className="flex items-center space-x-2">
+                <FontAwesomeIcon icon={faLayerGroup} className="" />
+                <span>
+                  {project.name} ({project.device_nums || 0})
+                </span>
               </div>
-            </button>
+              <div className="flex space-x-6 mt-6 justify-center w-full">
+                <span className="text-sm">Handover</span>
+                <span className="text-sm">Add</span>
+                <span className="text-sm text-red-500">Delete</span>
+              </div>
+            </div>
           ))}
         </div>
+      </div>
 
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-xl">Filters</h1>
-          <div className="flex gap-4">
-            <div className="flex relative">
+      {/* Popup for adding new project */}
+      {isFormOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div
+            ref={formRef}
+            className=" rounded-md shadow-lg backdrop-filter backdrop-blur-lg bg-white bg-opacity-10 border border-white border-opacity-20 p-8"
+          >
+            <h2 className="text-2xl mb-4">Create New Project</h2>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                value={projectName}
+                onChange={(e) => setProjectName(e.target.value)}
+                placeholder="Project Name"
+                className="border p-2 rounded-md w-full mb-4"
+                required
+              />
+              <textarea
+                value={projectNotes}
+                onChange={(e) => setProjectNotes(e.target.value)}
+                placeholder="Project Notes"
+                className="border p-2 rounded-md w-full mb-4"
+                required
+              />
               <button
-                className="px-4 py-2 bg-white bg-opacity-10 border border-gray-300 border-opacity-50 rounded-lg flex items-center space-x-2"
-                onClick={() => toggleDropdown(0)}
+                type="submit"
+                className="bg-green-500 text-white p-2 rounded-md"
               >
-                <span>{statusFilter}</span>
-                <FontAwesomeIcon icon={faChevronDown} />
+                Create Project
               </button>
-
-              {openIndex === 0 && (
-                <ul className="absolute mt-12 rounded-lg shadow-lg bg-white bg-opacity-20 backdrop-blur-lg border border-gray-100 z-10 w-full text-start">
-                  {["All", "Online", "Offline"].map((option) => (
-                    <li
-                      key={option}
-                      className="px-4 py-2 cursor-pointer hover:bg-gray-200 hover:rounded-md hover:text-black"
-                      onClick={() => setStatusFilter(option)}
-                    >
-                      {option}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            <div className="flex relative">
-              <button
-                className="px-4 py-2 bg-white bg-opacity-10 border border-gray-300 border-opacity-50 rounded-lg flex items-center space-x-2"
-                onClick={() => toggleDropdown(1)}
-              >
-                <span>{modelFilter}</span>
-                <FontAwesomeIcon icon={faChevronDown} />
-              </button>
-
-              {openIndex === 1 && (
-                <ul className="absolute mt-12 rounded-lg shadow-lg bg-white bg-opacity-20 backdrop-blur-lg border border-gray-100 z-10 w-full text-start">
-                  {["All Model", "EAP520"].map((option) => (
-                    <li
-                      key={option}
-                      className="px-4 py-2 cursor-pointer hover:bg-gray-200 hover:rounded-md hover:text-black"
-                      onClick={() => setModelFilter(option)}
-                    >
-                      {option}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            <div className="flex relative">
-              <button
-                className="px-4 py-2 bg-white bg-opacity-10 border border-gray-300 border-opacity-50 rounded-lg flex items-center space-x-2"
-                onClick={() => toggleDropdown(2)}
-              >
-                <FontAwesomeIcon icon={faFilter} />
-                <FontAwesomeIcon icon={faChevronDown} />
-              </button>
-
-              {openIndex === 2 && (
-                <ul className="absolute mt-12 rounded-lg shadow-lg bg-white bg-opacity-20 backdrop-blur-lg border border-gray-100 z-10 w-full text-start">
-                  {[
-                    "MAC",
-                    "IP",
-                    "Name",
-                    "Type",
-                    "Model",
-                    "Version",
-                    "Access Time",
-                  ].map((option) => (
-                    <li
-                      key={option}
-                      className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 hover:rounded-md hover:text-black"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={checkedItems.includes(option)}
-                        onChange={() => handleCheckboxChange(option)}
-                        className="mr-2"
-                      />
-                      <span>{option}</span>
-                    </li>
-                  ))}
-                  <li className="px-4 py-2">
-                    <button
-                      onClick={handleApplyFilters}
-                      className="w-full bg-green-500 text-white rounded-lg py-2 hover:bg-green-600"
-                    >
-                      Apply
-                    </button>
-                  </li>
-                </ul>
-              )}
-            </div>
+            </form>
           </div>
         </div>
+      )}
 
-        {loading ? (
-          <div className="text-center py-4 text-gray-400">
-            Loading devices...
-          </div>
-        ) : (
-          <table className="table-auto w-full h-full">
-            <thead>
-              <tr className="bg-white bg-opacity-10">
-                <th className="py-3 px-4 w-[5%]">
-                  <input type="checkbox" className="w-5 h-5 rounded" />
-                </th>
-                <th className="py-3 px-4 text-left w-[10%]">SN</th>
-                <th className="py-3 px-4 text-left w-[25%]">Device MAC</th>
-                <th className="py-3 px-4 text-left w-[25%]">Access Time</th>
-                <th className="py-3 px-4 text-left w-[15%]">Status</th>
-                <th className="py-3 px-4 text-left w-[20%]">Config</th>
-              </tr>
-            </thead>
-            <tbody>
-              {deviceData.length > 0 ? (
-                deviceData.map((device, index) => (
-                  <tr key={device.id}>
-                    <td className="py-3 px-4">
-                      <input type="checkbox" className="w-5 h-5 rounded" />
-                    </td>
-                    <td className="py-3 px-4">{index + 1}</td>
-                    <td className="py-3 px-4">{device.dev_mac}</td>
-                    <td className="py-3 px-4">{device.join_time}</td>
-                    <td className="py-3 px-4">
-                      {device.status === "1" ? "Online" : "Offline"}
-                    </td>
-                    <td className="py-3 px-4">...</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="6" className="text-center py-4">
-                    No devices found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        )}
+      <div className="bg-white bg-opacity-10 backdrop-blur-lg border-white rounded-lg p-6 w-full shadow-lg mt-4 mb-10">
+        <p className="text-lg mb-2">Project Info</p>
+        <div className="flex items-center mb-4">
+          <i className="fas fa-layer-group text-3xl mr-3 text-green-400"></i>
+          <h1 className="text-2xl font-bold">My Project</h1>
+        </div>
+        <p className="text-md mb-4 text-gray-400">
+          Creation Time: 2024-08-22 17:56:59
+        </p>
+        <p className="text-md">
+          Project Notes: 1. This item is the system default and cannot be
+          modified or deleted. 2. Users can put new access or temporarily
+          unallocated devices into this item.
+        </p>
       </div>
     </div>
   );
