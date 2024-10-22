@@ -413,30 +413,30 @@ const Sidebar = () => {
           <RiDashboardHorizontalLine className="icon w-6 h-6 text-white" />
         </Link>
         <Link
-          to="/devices"
+          to="/dashboard/devices"
           className={`icon-container ${
             getActivePage() === "Devices" ? "active" : ""
           }`}
-          onClick={() => handleIconClick("/devices")}
+          onClick={() => handleIconClick("/dashboard/devices")}
         >
           <IoWifiOutline className="icon w-6 h-6 text-white" />
         </Link>
         <Link
-          to="/folder"
+          to="/dashboard/folder"
           className={`icon-container ${
             getActivePage() === "Folder" ? "active" : "" // Corrected this line
           }`}
-          onClick={() => handleIconClick("/folder")}
+          onClick={() => handleIconClick("/dashboard/folder")}
         >
           <FaRegFolder className="icon w-6 h-6 text-white" />
         </Link>
 
         <Link
-          to="/security"
+          to="/dashboard/security"
           className={`icon-container ${
             getActivePage() === "Security" ? "active" : ""
           }`}
-          onClick={() => handleIconClick("/security")}
+          onClick={() => handleIconClick("/dashboard/security")}
         >
           <MdOutlineSecurity className="icon w-6 h-6 text-white" />
         </Link>
