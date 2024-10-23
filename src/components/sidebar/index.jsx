@@ -260,7 +260,7 @@ const Sidebar = () => {
         return "Folder";
       case "/dashboard/security":
         return "Security";
-      case "/lock":
+      case "/dashboard/lock":
         return "Lock";
       case "/users":
         return "Users";
@@ -358,11 +358,11 @@ const Sidebar = () => {
             <MdOutlineSecurity className="icon w-6 h-6 text-white" />
           </Link>
           <Link
-            to="/lock"
+            to="/dashboard/lock"
             className={`icon-container ${
               getActivePage() === "Lock" ? "active" : ""
             }`}
-            onClick={() => handleIconClick("/lock")}
+            onClick={() => handleIconClick("/dashboard/lock")}
           >
             <CiLock className="icon w-6 h-6 text-white" />
           </Link>

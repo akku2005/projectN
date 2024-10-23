@@ -14,6 +14,7 @@ const Dashboard = lazy(() => import("../_root/Dashboard"));
 const Devices = lazy(() => import("../_root/pages/Devices"));
 const Folder = lazy(() => import("../_root/pages/Folder"));
 const Security = lazy(() => import("../_root/pages/SecurityPage"));
+const AuthConfigPage = lazy(() => import("../_root/pages/AuthConfigPage"));
 
 const isAuthenticated = () => {
   const token = Cookies.get("userToken");
@@ -57,6 +58,7 @@ const AppRouter = createBrowserRouter([
           { path: "devices", element: <Devices /> },
           { path: "folder", element: <Folder /> },
           { path: "security", element: <Security /> },
+          { path: "lock", element: <AuthConfigPage /> },
         ],
       },
       { path: "*", element: <NotFound /> },
